@@ -10,7 +10,7 @@ export function createServer(): Application {
         res.status(200).json({status: 'ok'});
     });
 
-    app.use('/api/images', imageRoutes)
+    app.use('/api/images', imageRoutes);
 
     return app;
 }
