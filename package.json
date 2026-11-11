@@ -2,10 +2,10 @@
   "name": "image-resizing-api",
   "version": "1.0.0",
   "description": "API para redimensionamento de imagens",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js",
+    "start": "node dist/src/index.js",
     "dev": "ts-node src/index.ts",
     "test": "npm run build && jasmine",
     "lint": "prettier --write ."
@@ -16,6 +16,7 @@
     "@types/node": "^22.0.0",
     "@types/supertest": "^6.0.0",
     "jasmine": "^5.1.0",
+    "jasmine-spec-reporter": "^7.0.0",
     "prettier": "^3.3.0",
     "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
