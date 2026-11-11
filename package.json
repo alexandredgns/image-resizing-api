@@ -8,13 +8,17 @@
     "start": "node dist/src/index.js",
     "dev": "ts-node src/index.ts",
     "test": "npm run build && jasmine",
-    "lint": "prettier --write ."
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/jasmine": "^5.1.0",
     "@types/node": "^22.0.0",
     "@types/supertest": "^6.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.72.2",
+    "@typescript-eslint/parser": "^8.72.2",
+    "eslint": "^10.14.0",
     "jasmine": "^5.1.0",
     "jasmine-spec-reporter": "^7.0.0",
     "prettier": "^3.3.0",
