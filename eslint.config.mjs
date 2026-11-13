@@ -1,0 +1,25 @@
+import eslint from "@eslint/js";
+import tseslint from "typescript-eslint";
+import prettierConfig from "eslint-config-prettier";
+
+export default tseslint.config(
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
+  prettierConfig,
+  {
+    rules: {
+      // TypeScript Rules
+      "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-explicit-any": "warn", // Evita o uso de 'any'
+      "@typescript-eslint/explicit-function-return-type": "off", // Opcional: desativado por ser muito verboso, mas pode ser 'warn'
+
+      // JavaScript/Code Style Rules
+      "eqeqeq": ["error", "always"], 
+      "no-var": "error",
+      "prefer-const": "error",
+      "curly": "error",
+      "no-console": ["warn", { allow: ["warn", "error"] }],
+      "no-else-return": "warn",
+    },
+  },
+);
