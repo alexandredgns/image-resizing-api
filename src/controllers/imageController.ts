@@ -1,7 +1,10 @@
-import type { RequestHandler } from 'express';
+import type { Request, RequestHandler, Response } from 'express';
 import { ImageServiceError, resizeImage } from '../services/imageService';
 
-export const imageController: RequestHandler = async (req, res) => {
+export const imageController: RequestHandler = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   const { filename, width, height } = req.query;
 
   if (
@@ -23,7 +26,7 @@ export const imageController: RequestHandler = async (req, res) => {
     });
 
     res.sendFile(imagePath);
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof ImageServiceError) {
       res.status(error.statusCode).json({ error: error.message });
       return;

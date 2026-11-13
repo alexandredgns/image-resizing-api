@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { imageController } from '../controllers/imageController';
 
-const imageRoutes = Router();
+const imageRoutes: Router = Router();
 
 imageRoutes.get('/', imageController);
 

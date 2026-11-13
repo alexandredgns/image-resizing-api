@@ -3,12 +3,12 @@ import path from 'node:path';
 import sharp from 'sharp';
 
 export class ImageServiceError extends Error {
-  constructor(
-    message: string,
-    public statusCode: number
-  ) {
+  public statusCode: number;
+
+  constructor(message: string, statusCode: number) {
     super(message);
     this.name = 'ImageServiceError';
+    this.statusCode = statusCode;
   }
 }
 
@@ -18,8 +18,8 @@ interface ResizeImageOptions {
   height: number;
 }
 
-const imagesDirectory = path.resolve(process.cwd(), 'images');
-const processedDirectory = path.join(imagesDirectory, 'processed');
+const imagesDirectory: string = path.resolve(process.cwd(), 'images');
+const processedDirectory: string = path.join(imagesDirectory, 'processed');
 
 export async function resizeImage({
   filename,
@@ -38,13 +38,13 @@ export async function resizeImage({
   ) {
     throw new ImageServiceError(
       'Width and Height must be positive integer numbers!',
-      400
+      400,
     );
   }
 
-  const hasExtension = path.extname(filename) !== '';
-  const sourceFilename = hasExtension ? filename : `${filename}.jpg`;
-  const sourcePath = path.join(imagesDirectory, sourceFilename);
+  const hasExtension: boolean = path.extname(filename) !== '';
+  const sourceFilename: string = hasExtension ? filename : `${filename}.jpg`;
+  const sourcePath: string = path.join(imagesDirectory, sourceFilename);
 
   try {
     await fs.access(sourcePath);
@@ -52,9 +52,10 @@ export async function resizeImage({
     throw new ImageServiceError('Image not found', 404);
   }
 
-  const parsedName = path.parse(sourceFilename);
-  const outputFilename = `${parsedName.name}-${width}x${height}${parsedName.ext}`;
-  const outputPath = path.join(processedDirectory, outputFilename);
+  const parsedName: path.ParsedPath = path.parse(sourceFilename);
+  const outputFilename: string =
+    `${parsedName.name}-${width}x${height}${parsedName.ext}`;
+  const outputPath: string = path.join(processedDirectory, outputFilename);
 
   await fs.mkdir(processedDirectory, { recursive: true });
 

@@ -5,16 +5,16 @@ import sharp from 'sharp';
 import request from 'supertest';
 import { imageController } from '../../src/controllers/imageController';
 
-const imagesDirectory = path.resolve(process.cwd(), 'images');
-const processedDirectory = path.join(imagesDirectory, 'processed');
-const fixtureFilename = 'jasmine-controller-fixture.jpg';
-const fixturePath = path.join(imagesDirectory, fixtureFilename);
+const imagesDirectory: string = path.resolve(process.cwd(), 'images');
+const processedDirectory: string = path.join(imagesDirectory, 'processed');
+const fixtureFilename: string = 'jasmine-controller-fixture.jpg';
+const fixturePath: string = path.join(imagesDirectory, fixtureFilename);
 
-const app = express();
+const app: express.Express = express();
 app.get('/api/images', imageController);
 
-describe('imageController', () => {
-  beforeAll(async () => {
+describe('imageController', (): void => {
+  beforeAll(async (): Promise<void> => {
     await fs.mkdir(imagesDirectory, { recursive: true });
 
     await sharp({
@@ -29,15 +29,15 @@ describe('imageController', () => {
       .toFile(fixturePath);
   });
 
-  afterAll(async () => {
+  afterAll(async (): Promise<void> => {
     await fs.rm(fixturePath, { force: true });
     await fs.rm(
       path.join(processedDirectory, 'jasmine-controller-fixture-10x5.jpg'),
-      { force: true }
+      { force: true },
     );
   });
 
-  it('returns 400 when parameters are missing', async () => {
+  it('returns 400 when parameters are missing', async (): Promise<void> => {
     const response = await request(app).get('/api/images');
 
     expect(response.status).toBe(400);
@@ -46,18 +46,21 @@ describe('imageController', () => {
     });
   });
 
-  it('returns the resized image when the parameters are valid', async () => {
-    const response = await request(app).get('/api/images').query({
-      filename: fixtureFilename,
-      width: 10,
-      height: 5,
-    });
+  it(
+    'returns the resized image when the parameters are valid',
+    async (): Promise<void> => {
+      const response = await request(app).get('/api/images').query({
+        filename: fixtureFilename,
+        width: 10,
+        height: 5,
+      });
 
-    expect(response.status).toBe(200);
-    expect(response.headers['content-type']).toContain('image/jpeg');
-  });
+      expect(response.status).toBe(200);
+      expect(response.headers['content-type']).toContain('image/jpeg');
+    },
+  );
 
-  it('returns 400 when a dimension is invalid', async () => {
+  it('returns 400 when a dimension is invalid', async (): Promise<void> => {
     const response = await request(app).get('/api/images').query({
       filename: fixtureFilename,
       width: 'abc',
