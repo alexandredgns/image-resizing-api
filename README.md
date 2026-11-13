@@ -42,11 +42,11 @@ For example, the request above looks for `images/fjord.jpg` and returns the resi
 
 ### Required query parameters
 
-| Parameter | Description |
-| :--- | :--- |
+| Parameter  | Description                                                     |
+| :--------- | :-------------------------------------------------------------- |
 | `filename` | Name of the source image, with or without a supported extension |
-| `width` | Target width in pixels; must be a positive integer |
-| `height` | Target height in pixels; must be a positive integer |
+| `width`    | Target width in pixels; must be a positive integer              |
+| `height`   | Target height in pixels; must be a positive integer             |
 
 ## Error Responses
 
